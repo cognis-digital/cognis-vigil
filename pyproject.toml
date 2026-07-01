@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cognis-vigil"
+version = "0.1.0"
+description = "Multi-domain ISR sensor fusion for counternarcotics (non-kinetic) — Cognis Vigil"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Cognis Digital LLC" }]
+keywords = ["isr", "sensor-fusion", "counternarcotics", "ais", "adsb", "track-correlation", "cognis"]
+license = { text = "COCL-1.0" }
+dependencies = []
+
+[project.urls]
+Homepage = "https://cognis.digital"
+
+[project.scripts]
+cognis-vigil = "cognis_vigil.cli:main"
+
+[tool.setuptools]
+packages = ["cognis_vigil"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

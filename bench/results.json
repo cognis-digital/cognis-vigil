@@ -1,0 +1,48 @@
+{
+  "accuracy": {
+    "detections": 228,
+    "tracks": 15,
+    "true_tracks": 15,
+    "track_association": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "dark_contact": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "cost_per_hour_savings": 0.7591,
+    "determinism": true
+  },
+  "performance": [
+    {
+      "contacts": 80,
+      "detections": 1260,
+      "tracks": 80,
+      "fuse_s": 0.0534,
+      "detections_per_s": 23606
+    },
+    {
+      "contacts": 240,
+      "detections": 3780,
+      "tracks": 240,
+      "fuse_s": 0.4871,
+      "detections_per_s": 7760
+    },
+    {
+      "contacts": 640,
+      "detections": 10080,
+      "tracks": 640,
+      "fuse_s": 3.398,
+      "detections_per_s": 2966
+    }
+  ],
+  "environment": {
+    "python": "3.14.0",
+    "implementation": "CPython",
+    "system": "Windows",
+    "machine": "AMD64"
+  }
+}

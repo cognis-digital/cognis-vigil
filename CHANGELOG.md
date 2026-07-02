@@ -2,6 +2,20 @@
 
 Adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] — 2026-07-02
+
+### Added
+- **SNR frame-stacking** (`detect_with_stacking`): coherently averages N frames to
+  recover a faint static target below single-frame detectability (verified: a
+  target invisible in one frame is recovered after stacking).
+- **Pfa-controlled CFAR** (`pfa_to_k`): set the detection threshold from a target
+  probability of false alarm; `search --pfa`.
+- **Georeferenced confidence heatmap** (`heatmap.py`): dense CA-CFAR SNR surface
+  downsampled to cells, exported as GeoJSON priority polygons / ASCII preview;
+  CLI `heatmap`.
+- **ROC characterization** in `bench/` (Pd vs false alarms across thresholds,
+  monotonicity gated) and an honest `docs/COMPLIANCE.md` posture statement.
+
 ## [0.3.0] — 2026-07-02
 
 ### Added

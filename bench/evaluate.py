@@ -9,7 +9,9 @@ from cognis_vigil import synth
 from cognis_vigil.coverage import coverage_plan
 from cognis_vigil.crosscue import find_dark_contacts
 from cognis_vigil.fusion import correlate
-from cognis_vigil.smalltarget import detect_small_targets
+from cognis_vigil.smalltarget import (
+    detect_small_targets, detect_with_stacking,
+)
 
 from .metrics import label_prf, pairwise_prf
 
@@ -50,12 +52,31 @@ def evaluate() -> dict:
                     "recall": round(tp / len(tpix), 4) if tpix else 0.0,
                     "false_alarms": max(0, len(blobs) - tp)}
 
+    # ROC-style characterization: sweep CFAR threshold, measure Pd (recall) & false alarms
+    roc = []
+    for kk in (3.0, 4.0, 5.0, 6.0, 7.0):
+        bl = detect_small_targets(img, k=kk)
+        dtp = sum(1 for (r, c) in tpix
+                  if any(abs(b["row"] - r) <= 1.5 and abs(b["col"] - c) <= 1.5 for b in bl))
+        roc.append({"k": kk, "pd": round(dtp / len(tpix), 4), "false_alarms": max(0, len(bl) - dtp)})
+
+    # SNR frame-stacking: a faint static target invisible in one frame, recovered by stacking
+    vid, (tr, tc) = synth.video_faint_static()
+    single = detect_small_targets(vid[0], k=5.0)
+    stacked = detect_with_stacking(vid, k=5.0)
+    single_hit = any(abs(b["row"] - tr) <= 1.5 and abs(b["col"] - tc) <= 1.5 for b in single)
+    stacked_hit = any(abs(b["row"] - tr) <= 1.5 and abs(b["col"] - tc) <= 1.5 for b in stacked)
+    stacking = {"frames": len(vid), "single_frame_detected": single_hit,
+                "stacked_detected": stacked_hit}
+
     return {
         "detections": len(dets), "tracks": len(tracks),
         "true_tracks": len(truth_groups),
         "track_association": assoc,
         "dark_contact": dark_prf,
         "small_target": small_target,
+        "roc": roc,
+        "stacking": stacking,
         "cost_per_hour_savings": cov["cost_per_hour_savings"],
         "determinism": determinism,
     }

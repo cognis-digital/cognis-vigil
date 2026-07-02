@@ -62,21 +62,43 @@ def cmd_coverage(args):
 def cmd_search(args):
     """Small/point-target search-and-rescue demo (swimmer / small craft in EO/IR)."""
     from . import synth
-    from .smalltarget import detect_in_video, detect_small_targets
-    if args.video:
+    from .smalltarget import detect_in_video, detect_small_targets, detect_with_stacking, pfa_to_k
+    k = pfa_to_k(args.pfa) if args.pfa else args.k
+    if args.stack:
+        vid, tpt = synth.video_faint_static()
+        single = detect_small_targets(vid[0], k=k)
+        blobs = detect_with_stacking(vid, k=k)
+        truth = {tpt}
+        medium = f"{len(vid)}-frame SNR-stack (faint static target; single-frame found {len(single)})"
+    elif args.video:
         vid, truth = synth.video_with_target()
-        blobs = detect_in_video(vid, k=args.k)
+        blobs = detect_in_video(vid, k=k)
         medium = f"{len(vid)}-frame video (temporal background subtraction)"
     else:
         img, truth = synth.scene_with_targets()
-        blobs = detect_small_targets(img, k=args.k)
+        blobs = detect_small_targets(img, k=k)
         medium = f"{len(img)}x{len(img[0])} scene (CA-CFAR)"
     print(f"COGNIS VIGIL | small-target search over {medium}")
-    print(f"planted targets: {len(truth)}   detections: {len(blobs)}   (k={args.k} sigma)")
+    print(f"planted targets: {len(truth)}   detections: {len(blobs)}   (k={round(k,2)} sigma)")
     for i, b in enumerate(blobs[:10], 1):
         print(f"  [{i}] pixel ({b['row']},{b['col']}) size={b['size']}px "
               f"SNR={b['peak_snr']} conf={b['confidence']:.2f}")
     print("NOTE: non-kinetic search leads; corroborate before tasking assets.")
+    return 0
+
+
+def cmd_heatmap(args):
+    from . import synth
+    from .heatmap import ascii_preview, heatmap_from_image, heatmap_geojson, to_json
+    img, truth = synth.scene_with_targets()
+    grid = heatmap_from_image(img, cell=8)
+    print(f"COGNIS VIGIL | georeferenced search-priority heatmap ({len(grid)}x{len(grid[0])} cells)")
+    print(ascii_preview(grid))
+    if args.geojson:
+        gt = {"origin_lat": 9.5, "origin_lon": -79.9, "dlat": -0.001, "dlon": 0.001}
+        with open(args.geojson, "w", encoding="utf-8") as f:
+            f.write(to_json(heatmap_geojson(grid, gt, cell=8)))
+        print(f"[+] heatmap GeoJSON -> {args.geojson}")
     return 0
 
 
@@ -102,9 +124,15 @@ def build_parser():
     c.set_defaults(func=cmd_coverage)
 
     s = sub.add_parser("search", help="small-target search-and-rescue (swimmer/small craft)")
-    s.add_argument("--video", action="store_true", help="use temporal video detection")
+    s.add_argument("--video", action="store_true", help="temporal video detection")
+    s.add_argument("--stack", action="store_true", help="SNR frame-stacking for a faint static target")
     s.add_argument("--k", type=float, default=5.0, help="CFAR threshold (sigma)")
+    s.add_argument("--pfa", type=float, help="target probability of false alarm (overrides --k)")
     s.set_defaults(func=cmd_search)
+
+    h = sub.add_parser("heatmap", help="georeferenced detection-confidence heatmap")
+    h.add_argument("--geojson", help="write heatmap GeoJSON to this path")
+    h.set_defaults(func=cmd_heatmap)
     return p
 
 

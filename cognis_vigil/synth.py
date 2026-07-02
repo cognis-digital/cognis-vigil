@@ -77,6 +77,20 @@ def scene_with_targets(seed=40, H=64, W=64, n_targets=5, clutter=0.05, amp=0.45)
     return img, truth
 
 
+def video_faint_static(seed=43, H=48, W=48, frames=12, clutter=0.06, amp=0.14):
+    """A faint STATIC target below single-frame detectability (SNR ~2.3), planted
+    at a fixed pixel across many frames — recoverable only by SNR-stacking.
+    Returns (frames, (row, col))."""
+    rng = random.Random(seed)
+    r0, c0 = H // 2, W // 2
+    vid = []
+    for _ in range(frames):
+        img = [[max(0.0, rng.gauss(0.2, clutter)) for _ in range(W)] for _ in range(H)]
+        img[r0][c0] += amp
+        vid.append(img)
+    return vid, (r0, c0)
+
+
 def video_with_target(seed=41, H=48, W=48, frames=6, clutter=0.06, amp=0.5):
     """A video (frame stack) of churny background with one moving target
     (e.g. a swimmer drifting). Returns (frames, planted_pixels_per_frame)."""

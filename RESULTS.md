@@ -21,8 +21,8 @@ Environment: CPython 3.14.0 on Windows/AMD64. Deterministic synthetic multi-sens
 
 | Contacts | Detections | Tracks | Fuse (s) | Detections/s |
 |---:|---:|---:|---:|---:|
-| 80 | 1,260 | 80 | 0.0849 | 14,844 |
-| 240 | 3,780 | 240 | 0.6823 | 5,540 |
-| 640 | 10,080 | 640 | 4.4545 | 2,262 |
+| 80 | 1,260 | 80 | 0.0745 | 16,916 |
+| 240 | 3,780 | 240 | 0.5365 | 7,046 |
+| 640 | 10,080 | 640 | 4.5306 | 2,224 |
 
 Gated in CI by `tests/test_bench.py`. See `docs/LIMITATIONS.md`.

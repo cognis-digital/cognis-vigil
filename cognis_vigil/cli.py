@@ -59,6 +59,27 @@ def cmd_coverage(args):
     return 0
 
 
+def cmd_search(args):
+    """Small/point-target search-and-rescue demo (swimmer / small craft in EO/IR)."""
+    from . import synth
+    from .smalltarget import detect_in_video, detect_small_targets
+    if args.video:
+        vid, truth = synth.video_with_target()
+        blobs = detect_in_video(vid, k=args.k)
+        medium = f"{len(vid)}-frame video (temporal background subtraction)"
+    else:
+        img, truth = synth.scene_with_targets()
+        blobs = detect_small_targets(img, k=args.k)
+        medium = f"{len(img)}x{len(img[0])} scene (CA-CFAR)"
+    print(f"COGNIS VIGIL | small-target search over {medium}")
+    print(f"planted targets: {len(truth)}   detections: {len(blobs)}   (k={args.k} sigma)")
+    for i, b in enumerate(blobs[:10], 1):
+        print(f"  [{i}] pixel ({b['row']},{b['col']}) size={b['size']}px "
+              f"SNR={b['peak_snr']} conf={b['confidence']:.2f}")
+    print("NOTE: non-kinetic search leads; corroborate before tasking assets.")
+    return 0
+
+
 def build_parser():
     p = argparse.ArgumentParser(prog="cognis-vigil",
                                 description="Cognis Vigil — multi-domain ISR fusion (non-kinetic)")
@@ -79,6 +100,11 @@ def build_parser():
     c.add_argument("--area", type=float, required=True)
     c.add_argument("--legacy", type=float, required=True)
     c.set_defaults(func=cmd_coverage)
+
+    s = sub.add_parser("search", help="small-target search-and-rescue (swimmer/small craft)")
+    s.add_argument("--video", action="store_true", help="use temporal video detection")
+    s.add_argument("--k", type=float, default=5.0, help="CFAR threshold (sigma)")
+    s.set_defaults(func=cmd_search)
     return p
 
 

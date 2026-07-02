@@ -20,6 +20,7 @@
 
 - 🛰️ **Track fusion** — kinematically-gated nearest-neighbor association across EO/IR, radar, AIS (maritime) and ADS-B (air).
 - 🌑 **Dark-contact cross-cue** — flags non-cooperative maritime tracks (radar/EO, no AIS) with confidence scoring.
+- 🔬 **Small-target search-and-rescue** — CA-CFAR + temporal background subtraction pulls a **1–2 pixel target** (swimmer lost at sea, small craft) out of clutter in imagery/video; detections feed the tracker as geolocated leads.
 - 💰 **Coverage & cost model** — cost-per-hour vs a legacy baseline (the challenge's key metric).
 - 🗺️ **GeoJSON export** — track lines with dark contacts flagged.
 - 🔒 **Offline / zero-dependency** — pure Python stdlib.

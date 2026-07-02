@@ -2,6 +2,20 @@
 
 Adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] — 2026-07-02
+
+### Added
+- **Small / point-target detection for search-and-rescue** (`smalltarget.py`):
+  CA-CFAR (cell-averaging constant-false-alarm-rate) detection to pull a 1–2 pixel
+  target — a swimmer lost at sea, a small craft — out of sea/ground clutter, plus
+  temporal background subtraction (`detect_in_video`) to surface a moving/bobbing
+  target across video frames.
+- `imagery.py` bridges detected blobs into geolocated Detections that flow through
+  fusion / cross-cue / motion (imagery target → track → projected drift).
+- CLI `search` (image + `--video`); small-target recall gated in CI.
+- Verified: recovers all planted point targets (recall 1.0) at 6–10 sigma with
+  low false alarms; moving swimmer recovered from video.
+
 ## [0.2.0] — 2026-07-02
 
 ### Added

@@ -39,6 +39,10 @@ def render_md(res) -> str:
     d = a["dark_contact"]
     L.append(f"| Track association (pairwise) | P={t['precision']:.3f} / R={t['recall']:.3f} / F1={t['f1']:.3f} |")
     L.append(f"| Dark-contact detection | P={d['precision']:.3f} / R={d['recall']:.3f} / F1={d['f1']:.3f} |")
+    st = a.get("small_target")
+    if st:
+        L.append(f"| Small-target (SAR) recall | {st['recall']:.3f} "
+                 f"({st['planted']} planted, {st['false_alarms']} false alarms) |")
     L.append(f"| Detections / tracks / true tracks | {a['detections']} / {a['tracks']} / {a['true_tracks']} |")
     L.append(f"| Cost/hour savings vs legacy | {a['cost_per_hour_savings']*100:.0f}% |")
     L.append(f"| Determinism | {a['determinism']} |")

@@ -15,3 +15,8 @@ def test_cost_savings_and_determinism():
     r = evaluate.evaluate()
     assert r["cost_per_hour_savings"] > 0
     assert r["determinism"] is True
+
+
+def test_small_target_recall():
+    r = evaluate.evaluate()
+    assert r["small_target"]["recall"] >= 0.9

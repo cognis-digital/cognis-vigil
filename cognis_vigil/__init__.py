@@ -9,5 +9,6 @@ explicitly NOT a targeting or kinetic-finish capability.
 (c) 2026 Cognis Digital LLC (Wyoming, USA). Source-available under COCL-1.0.
 """
 
-__version__ = "0.2.0"
-__all__ = ["geo", "model", "fusion", "motion", "crosscue", "coverage", "geojson", "report", "synth"]
+__version__ = "0.3.0"
+__all__ = ["geo", "model", "fusion", "motion", "crosscue", "coverage",
+           "smalltarget", "imagery", "geojson", "report", "synth"]

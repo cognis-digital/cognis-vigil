@@ -13,6 +13,12 @@
       "recall": 1.0,
       "f1": 1.0
     },
+    "small_target": {
+      "planted": 5,
+      "detected": 5,
+      "recall": 1.0,
+      "false_alarms": 0
+    },
     "cost_per_hour_savings": 0.7591,
     "determinism": true
   },
@@ -21,22 +27,22 @@
       "contacts": 80,
       "detections": 1260,
       "tracks": 80,
-      "fuse_s": 0.0534,
-      "detections_per_s": 23606
+      "fuse_s": 0.0849,
+      "detections_per_s": 14844
     },
     {
       "contacts": 240,
       "detections": 3780,
       "tracks": 240,
-      "fuse_s": 0.4871,
-      "detections_per_s": 7760
+      "fuse_s": 0.6823,
+      "detections_per_s": 5540
     },
     {
       "contacts": 640,
       "detections": 10080,
       "tracks": 640,
-      "fuse_s": 3.398,
-      "detections_per_s": 2966
+      "fuse_s": 4.4545,
+      "detections_per_s": 2262
     }
   ],
   "environment": {

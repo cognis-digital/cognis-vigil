@@ -62,3 +62,32 @@ def generate(seed: int = 20, n_maritime: int = 8, n_dark: int = 3, n_air: int = 
 
     rng.shuffle(dets)
     return dets, {"detection_track": truth, "dark_tracks": dark_truth}
+
+
+def scene_with_targets(seed=40, H=64, W=64, n_targets=5, clutter=0.05, amp=0.45):
+    """A cluttered EO/IR scene with a handful of planted 1-pixel targets
+    (~9 sigma over clutter). Returns (image, planted_pixels)."""
+    rng = random.Random(seed)
+    img = [[max(0.0, rng.gauss(0.2, clutter)) for _ in range(W)] for _ in range(H)]
+    truth = set()
+    for _ in range(n_targets):
+        r, c = rng.randint(5, H - 6), rng.randint(5, W - 6)
+        img[r][c] += amp
+        truth.add((r, c))
+    return img, truth
+
+
+def video_with_target(seed=41, H=48, W=48, frames=6, clutter=0.06, amp=0.5):
+    """A video (frame stack) of churny background with one moving target
+    (e.g. a swimmer drifting). Returns (frames, planted_pixels_per_frame)."""
+    rng = random.Random(seed)
+    vid, truth = [], []
+    r0, c0 = 8, 8
+    for i in range(frames):
+        img = [[max(0.0, rng.gauss(0.2, clutter)) for _ in range(W)] for _ in range(H)]
+        r, c = r0 + i * 3, c0 + i * 3
+        if 0 <= r < H and 0 <= c < W:
+            img[r][c] += amp
+            truth.append((r, c))
+        vid.append(img)
+    return vid, truth

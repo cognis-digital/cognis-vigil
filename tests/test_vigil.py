@@ -40,6 +40,26 @@ def test_coverage_savings():
     assert 0 <= cov["coverage_ratio"] <= 1
 
 
+def test_motion_smoothing_and_prediction():
+    from cognis_vigil.model import Detection, Track
+    from cognis_vigil.motion import alpha_beta_smooth, predict_next
+    # a track moving steadily north (+lat) with small jitter
+    dets = [Detection(id=f"d{i}", ts=1000.0 + i * 300, lat=9.0 + i * 0.02,
+                      lon=-79.0, sensor="radar", domain="maritime") for i in range(6)]
+    tr = Track(id="T", domain="maritime", detections=dets)
+    sm = alpha_beta_smooth(tr)
+    assert len(sm) == len(dets)
+    pred = predict_next(tr, horizon_s=300.0)
+    # prediction continues northward beyond the last fix
+    assert pred["lat"] > dets[-1].lat - 0.02
+
+
+def test_dark_contact_has_prediction():
+    from cognis_vigil import synth
+    dark = find_dark_contacts(correlate(synth.generate()[0]))
+    assert dark and dark[0]["predicted_next"] is not None
+
+
 def test_geojson_shape():
     dets, _ = synth.generate()
     tracks = correlate(dets)

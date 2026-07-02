@@ -19,9 +19,11 @@ def render_text(product) -> str:
     L.append(f"Dark contacts (no cooperative report): {len(product['dark_contacts'])}")
     L.append("")
     for i, d in enumerate(product["dark_contacts"][:10], 1):
+        pn = d.get("predicted_next")
+        pred = f" ->pred({pn['lat']:.3f},{pn['lon']:.3f})" if pn else ""
         L.append(f"  [{i}] {d['track_id']} {d['domain']:8} conf={d['confidence']:.2f} "
                  f"fixes={d['fixes']} sensors={','.join(d['sensors'])} "
-                 f"@({d['last_lat']:.3f},{d['last_lon']:.3f})")
+                 f"@({d['last_lat']:.3f},{d['last_lon']:.3f}){pred}")
     cov = product.get("coverage")
     if cov:
         L.append("")

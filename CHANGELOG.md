@@ -2,6 +2,13 @@
 
 Adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.0] — 2026-07-02
+
+### Added
+- **Constant-velocity motion model** (`motion.py`): alpha-beta track smoothing +
+  future-position prediction. Dark contacts now include a projected next position
+  (interdiction cueing — non-kinetic projected intercept, not a firing solution).
+
 ## [0.1.0] — 2026-07-01
 
 Initial public release.

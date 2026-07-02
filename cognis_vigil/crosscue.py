@@ -8,10 +8,12 @@ for interdiction by law-enforcement partners (non-kinetic).
 
 from __future__ import annotations
 
+from .motion import predict_next
+
 NONCOOP_SENSORS = {"radar", "eo", "ir", "sar"}
 
 
-def find_dark_contacts(tracks, min_fixes: int = 2) -> list:
+def find_dark_contacts(tracks, min_fixes: int = 2, predict_horizon_s: float = 1800.0) -> list:
     dark = []
     for tr in tracks:
         noncoop_fixes = [d for d in tr.detections if d.sensor in NONCOOP_SENSORS]
@@ -19,11 +21,12 @@ def find_dark_contacts(tracks, min_fixes: int = 2) -> list:
             # confidence rises with number & diversity of non-cooperative sensors
             sensor_div = len({d.sensor for d in noncoop_fixes})
             conf = min(0.95, 0.5 + 0.1 * len(noncoop_fixes) + 0.1 * sensor_div)
-            last = tr.detections[-1]
+            last = sorted(tr.detections, key=lambda d: d.ts)[-1]
             dark.append({
                 "track_id": tr.id, "domain": tr.domain,
                 "fixes": len(tr.detections), "sensors": sorted(tr.sensors),
                 "last_lat": last.lat, "last_lon": last.lon, "last_ts": last.ts,
+                "predicted_next": predict_next(tr, predict_horizon_s),
                 "confidence": round(conf, 4),
             })
     dark.sort(key=lambda x: -x["confidence"])

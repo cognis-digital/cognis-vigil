@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 import time
 
-from cognis_vigil import synth
-from cognis_vigil.fusion import correlate
+from scryer import synth
+from scryer.fusion import correlate
 
 
 def benchmark(sizes=(50, 150, 400)) -> list:

@@ -1,6 +1,6 @@
 # Standards & Compliance Posture — an honest statement
 
-Cognis Vigil is engineered *toward* defense-grade needs, and this document states
+Scryer is engineered *toward* defense-grade needs, and this document states
 plainly what is implemented versus what formal military acceptance still requires.
 We do **not** claim the software "meets all military requirements" — that is a
 determination made by a sponsoring authority through a formal process, not by a

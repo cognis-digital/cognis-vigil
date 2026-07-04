@@ -1,6 +1,6 @@
 # SOLIC Challenge Area 1 — Capability Mapping
 
-| Desired capability | Cognis Vigil | Module |
+| Desired capability | Scryer | Module |
 |---|---|---|
 | Multi-domain ISR (air/maritime/land) detection & cueing | EO/IR + radar + AIS + ADS-B fusion into tracks | `fusion` |
 | Detect go-fast vessels / semi-submersibles evading legacy systems | Dark-contact cross-cue (non-cooperative tracks) | `crosscue` |
@@ -10,7 +10,7 @@
 
 ## Non-kinetic
 Per the challenge ("This is not a request for kinetic finish capability"),
-Cognis Vigil is detection/monitoring only. It emits confidence-scored leads for
+Scryer is detection/monitoring only. It emits confidence-scored leads for
 interdiction by law-enforcement partners — no targeting.
 
 ## TRL posture (honest)

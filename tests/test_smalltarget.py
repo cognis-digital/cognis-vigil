@@ -1,7 +1,7 @@
-from cognis_vigil import synth
-from cognis_vigil.heatmap import heatmap_from_image, heatmap_geojson
-from cognis_vigil.imagery import search_image
-from cognis_vigil.smalltarget import (
+from scryer import synth
+from scryer.heatmap import heatmap_from_image, heatmap_geojson
+from scryer.imagery import search_image
+from scryer.smalltarget import (
     detect_in_video, detect_small_targets, detect_with_stacking, pfa_to_k,
 )
 

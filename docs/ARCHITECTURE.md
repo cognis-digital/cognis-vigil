@@ -16,7 +16,7 @@
 | `coverage` | Coverage ratio + cost-per-hour vs legacy baseline. |
 | `geojson`, `report` | Products. |
 | `synth` | Deterministic synthetic multi-sensor scenario + ground truth. |
-| `cli` | `cognis-vigil` entry point. |
+| `cli` | `scryer` entry point. |
 
 ## Principles
 1. **Non-kinetic** — detection/monitoring; leads for lawful interdiction, never targeting.

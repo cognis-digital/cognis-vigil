@@ -5,9 +5,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cognis_vigil import synth  # noqa: E402
-from cognis_vigil.crosscue import find_dark_contacts  # noqa: E402
-from cognis_vigil.fusion import correlate  # noqa: E402
+from scryer import synth  # noqa: E402
+from scryer.crosscue import find_dark_contacts  # noqa: E402
+from scryer.fusion import correlate  # noqa: E402
 
 dets, _ = synth.generate()
 tracks = correlate(dets)

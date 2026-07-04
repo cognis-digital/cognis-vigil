@@ -1,9 +1,9 @@
-from cognis_vigil import synth
-from cognis_vigil.coverage import coverage_plan
-from cognis_vigil.crosscue import find_dark_contacts
-from cognis_vigil.fusion import correlate
-from cognis_vigil.geo import haversine_km
-from cognis_vigil.geojson import tracks_to_geojson
+from scryer import synth
+from scryer.coverage import coverage_plan
+from scryer.crosscue import find_dark_contacts
+from scryer.fusion import correlate
+from scryer.geo import haversine_km
+from scryer.geojson import tracks_to_geojson
 
 
 def test_haversine_known_distance():
@@ -41,8 +41,8 @@ def test_coverage_savings():
 
 
 def test_motion_smoothing_and_prediction():
-    from cognis_vigil.model import Detection, Track
-    from cognis_vigil.motion import alpha_beta_smooth, predict_next
+    from scryer.model import Detection, Track
+    from scryer.motion import alpha_beta_smooth, predict_next
     # a track moving steadily north (+lat) with small jitter
     dets = [Detection(id=f"d{i}", ts=1000.0 + i * 300, lat=9.0 + i * 0.02,
                       lon=-79.0, sensor="radar", domain="maritime") for i in range(6)]
@@ -55,7 +55,7 @@ def test_motion_smoothing_and_prediction():
 
 
 def test_dark_contact_has_prediction():
-    from cognis_vigil import synth
+    from scryer import synth
     dark = find_dark_contacts(correlate(synth.generate()[0]))
     assert dark and dark[0]["predicted_next"] is not None
 

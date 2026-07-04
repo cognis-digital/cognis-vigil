@@ -26,7 +26,7 @@ def render_md(res) -> str:
     a = res["accuracy"]
     env = res["environment"]
     L = []
-    L.append("# Cognis Vigil — Verification Results\n")
+    L.append("# Scryer — Verification Results\n")
     L.append("Reproduce with: `python bench/run_all.py`.\n")
     L.append(f"Environment: {env['implementation']} {env['python']} on {env['system']}/{env['machine']}. "
              "Deterministic synthetic multi-sensor data.\n")

@@ -3,9 +3,9 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cognis-vigil"
+name = "scryer"
 version = "0.4.0"
-description = "Multi-domain ISR sensor fusion for counternarcotics (non-kinetic) — Cognis Vigil"
+description = "Multi-domain ISR sensor fusion for counternarcotics (non-kinetic) — Scryer"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [{ name = "Cognis Digital LLC" }]
@@ -17,10 +17,10 @@ dependencies = []
 Homepage = "https://cognis.digital"
 
 [project.scripts]
-cognis-vigil = "cognis_vigil.cli:main"
+scryer = "scryer.cli:main"
 
 [tool.setuptools]
-packages = ["cognis_vigil"]
+packages = ["scryer"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,1 +1,1 @@
-"""Verification harness for Cognis Vigil."""
+"""Verification harness for Scryer."""

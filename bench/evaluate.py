@@ -5,11 +5,11 @@ from __future__ import annotations
 import json
 from collections import Counter
 
-from cognis_vigil import synth
-from cognis_vigil.coverage import coverage_plan
-from cognis_vigil.crosscue import find_dark_contacts
-from cognis_vigil.fusion import correlate
-from cognis_vigil.smalltarget import (
+from scryer import synth
+from scryer.coverage import coverage_plan
+from scryer.crosscue import find_dark_contacts
+from scryer.fusion import correlate
+from scryer.smalltarget import (
     detect_small_targets, detect_with_stacking,
 )
 

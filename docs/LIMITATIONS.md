@@ -1,6 +1,6 @@
 # Limitations & Responsible Use
 
-- **Detection/monitoring only.** Cognis Vigil produces confidence-scored leads
+- **Detection/monitoring only.** Scryer produces confidence-scored leads
   for interdiction by law-enforcement partners. It is not a targeting,
   weapons-cueing, or kinetic capability, and must not be used as one.
 - **Synthetic benchmarks.** Metrics use planted synthetic tracks; they measure

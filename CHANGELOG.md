@@ -49,6 +49,6 @@ Initial public release.
 - Coverage & cost-per-hour vs legacy baseline — `coverage`.
 - GeoJSON track export — `geojson`.
 - Deterministic synthetic multi-sensor generator with planted ground truth — `synth`.
-- CLI (`cognis-vigil`): `demo`, `fuse`, `coverage`.
+- CLI (`scryer`): `demo`, `fuse`, `coverage`.
 - Verification harness: track-association + dark-contact metrics + performance;
   results in `RESULTS.md`. 9 tests. GitHub Actions CI across Python 3.9–3.13.

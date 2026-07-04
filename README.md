@@ -1,4 +1,4 @@
-<h1 align="center">🟣 Cognis Vigil</h1>
+<h1 align="center">🟣 Scryer</h1>
 <p align="center"><b>Multi-domain ISR sensor fusion for counternarcotics</b><br>
 <i>Fuse EO/IR + radar + AIS + ADS-B into tracks, flag "dark" contacts, model coverage cost — self-hosted, offline.</i></p>
 
@@ -28,9 +28,9 @@
 ## Quick start
 
 ```bash
-git clone https://github.com/cognis-digital/cognis-vigil
-cd cognis-vigil
-python -m cognis_vigil demo --geojson tracks.geojson
+git clone https://github.com/cognis-digital/scryer
+cd scryer
+python -m scryer demo --geojson tracks.geojson
 ```
 
 ## Verification & proof

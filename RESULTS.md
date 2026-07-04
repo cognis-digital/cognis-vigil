@@ -1,4 +1,4 @@
-# Cognis Vigil — Verification Results
+# Scryer — Verification Results
 
 Reproduce with: `python bench/run_all.py`.
 

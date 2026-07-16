@@ -2,6 +2,33 @@
 
 Adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- **Per-track kinematics** (`kinematics.py`): speed, heading, path length,
+  duration and straightness, plus a transparent behavior classifier
+  (`fast-mover` / `transiter` / `loiterer` / `stationary`) surfacing the go-fast
+  signature. Great-circle `initial_bearing` and `destination_point` helpers
+  added to `geo.py`.
+- **CSV exporters** (`export.py`): flat per-track CSV (with kinematics +
+  classification) and a confidence-ranked dark-contact lead CSV for spreadsheet
+  triage and case management.
+- **Coverage gap analysis** (`coverage.coverage_gap`): uncovered area, covered
+  fraction, and the marginal platforms/cost to close the gap.
+- **CLI `export`** subcommand (GeoJSON + track CSV + dark-contact lead CSV) and
+  `--csv` / `--kinematics` flags on `demo` and `fuse`.
+- **Opt-in kinematics enrichment** on `crosscue.find_dark_contacts`
+  (`with_kinematics=True`) — additive keys; default output unchanged.
+- **Docs**: overhauled README (architecture, install, config reference, FAQ);
+  new `docs/USAGE.md`; expanded `docs/ARCHITECTURE.md`; `ROADMAP.md`.
+- **Tests & CI**: 101 new tests (122 total). CI adds a ruff lint job, an
+  editable-install packaging smoke test, and a CLI end-to-end product-export job;
+  `py.typed` marker and a `[dev]` extra.
+
+### Notes
+- Fully backward compatible: no files removed, no public function or CLI entry
+  point changed; all additions are new modules, new flags, or opt-in parameters.
+
 ## [0.4.0] — 2026-07-02
 
 ### Added

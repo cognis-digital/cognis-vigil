@@ -10,7 +10,8 @@ from scryer.coverage import coverage_plan
 from scryer.crosscue import find_dark_contacts
 from scryer.fusion import correlate
 from scryer.smalltarget import (
-    detect_small_targets, detect_with_stacking,
+    detect_small_targets,
+    detect_with_stacking,
 )
 
 from .metrics import label_prf, pairwise_prf

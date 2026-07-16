@@ -11,4 +11,5 @@ explicitly NOT a targeting or kinetic-finish capability.
 
 __version__ = "0.4.0"
 __all__ = ["geo", "model", "fusion", "motion", "crosscue", "coverage",
-           "smalltarget", "imagery", "heatmap", "geojson", "report", "synth"]
+           "kinematics", "export", "smalltarget", "imagery", "heatmap",
+           "geojson", "report", "synth"]

@@ -22,5 +22,19 @@ scryer = "scryer.cli:main"
 [tool.setuptools]
 packages = ["scryer"]
 
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff>=0.5"]
+
+[tool.setuptools.package-data]
+scryer = ["py.typed"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]  # long descriptive lines are acceptable in this codebase

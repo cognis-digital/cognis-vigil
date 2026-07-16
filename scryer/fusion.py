@@ -10,7 +10,7 @@ from .model import Detection, Track
 
 
 def load_detections(path: str) -> list:
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         raw = json.load(f)
     return [Detection(**d) for d in raw]
 

@@ -7,6 +7,17 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip ruff
+      - name: Lint (ruff)
+        run: ruff check .
+
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -19,7 +30,32 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: python -m pip install --upgrade pip pytest
+      - name: Install package (packaging smoke test)
+        run: python -m pip install -e .
       - name: Run tests
+        env:
+          PYTHONUTF8: "1"
         run: python -m pytest -q
       - name: Verification suite
+        env:
+          PYTHONUTF8: "1"
         run: python bench/run_all.py
+
+  cli-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e .
+      - name: Console entry point
+        run: scryer --version
+      - name: End-to-end demo + product export
+        env:
+          PYTHONUTF8: "1"
+        run: |
+          python -m scryer demo --geojson tracks.geojson --csv tracks.csv --kinematics
+          python -m scryer search
+          python -m scryer heatmap --geojson heat.geojson
+          test -s tracks.geojson && test -s tracks.csv && test -s heat.geojson

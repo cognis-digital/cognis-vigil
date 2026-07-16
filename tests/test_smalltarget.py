@@ -2,7 +2,10 @@ from scryer import synth
 from scryer.heatmap import heatmap_from_image, heatmap_geojson
 from scryer.imagery import search_image
 from scryer.smalltarget import (
-    detect_in_video, detect_small_targets, detect_with_stacking, pfa_to_k,
+    detect_in_video,
+    detect_small_targets,
+    detect_with_stacking,
+    pfa_to_k,
 )
 
 

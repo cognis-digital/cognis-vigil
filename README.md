@@ -51,6 +51,9 @@ python -m scryer demo --geojson tracks.geojson --csv tracks.csv --kinematics
 # Fuse your own detections file (JSON list of detection records)
 python -m scryer fuse --detections dets.json --json
 
+# Situational-awareness read-out: zone occupancy, density, flow trend, dark contacts
+python -m scryer observe --detections dets.json      # or no flag for a synthetic demo
+
 # Generate GeoJSON, per-track CSV, and a confidence-ranked dark-contact lead CSV
 python -m scryer export --detections dets.json \
     --geojson tracks.geojson --csv tracks.csv --dark-csv leads.csv

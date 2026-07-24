@@ -6,7 +6,7 @@ import argparse
 import json
 import sys
 
-from . import __version__, synth
+from . import __version__, observer, synth
 from .coverage import coverage_plan
 from .crosscue import find_dark_contacts
 from .export import dark_contacts_to_csv, tracks_to_csv, write_csv
@@ -47,6 +47,31 @@ def cmd_demo(args):
     if getattr(args, "csv", None):
         write_csv(args.csv, tracks_to_csv(tracks, dark_ids))
         print(f"[+] tracks CSV -> {args.csv}")
+    return 0
+
+
+def cmd_observe(args):
+    dets = load_detections(args.detections) if args.detections else synth.generate()[0]
+    lons = [d.lon for d in dets]; lats = [d.lat for d in dets]
+    mx = (min(lons) + max(lons)) / 2; my = (min(lats) + max(lats)) / 2
+    W, S, E, N = min(lons), min(lats), max(lons), max(lats)
+    zones = [{"name": "NW", "bbox": (W, my, mx, N)}, {"name": "NE", "bbox": (mx, my, E, N)},
+             {"name": "SW", "bbox": (W, S, mx, my)}, {"name": "SE", "bbox": (mx, S, E, my)}]
+    # flow series: contact count per time bin
+    ts = sorted(d.ts for d in dets)
+    series = []
+    if ts:
+        lo, hi = ts[0], ts[-1] or ts[0] + 1
+        span = (hi - lo) or 1.0
+        bins = [0] * 6
+        for t in ts:
+            bins[min(5, int((t - lo) / span * 6))] += 1
+        series = bins
+    report = observer.observe(dets, zones=zones, series=series)
+    if args.json:
+        print(json.dumps(report, indent=2))
+    else:
+        print(observer.render_text(report))
     return 0
 
 
@@ -150,6 +175,11 @@ def build_parser():
     d.add_argument("--kinematics", action="store_true",
                    help="enrich dark contacts with speed/heading + classification")
     d.set_defaults(func=cmd_demo)
+
+    o = sub.add_parser("observe", help="situational-awareness read-out: zones, density, flow, dark contacts")
+    o.add_argument("--detections", help="detections JSON (else synthetic demo)")
+    o.add_argument("--json", action="store_true")
+    o.set_defaults(func=cmd_observe)
 
     f = sub.add_parser("fuse", help="correlate detections into tracks + dark contacts")
     f.add_argument("--detections", required=True)

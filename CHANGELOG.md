@@ -5,6 +5,7 @@ Adheres to [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 ### Added
+- **Observer** (`observer.py`, `scryer observe`): live situational-awareness read-out over fused contacts — zone occupancy, density/activity level, flow trend, a deterministic plain-language scene summary, and a tactical report. Reads across EO/IR + radar + AIS/ADS-B and flags **non-cooperative (dark) contacts** a camera-only detector misses. Zero-dependency, offline, auditable, non-kinetic. 8 tests.
 - **Per-track kinematics** (`kinematics.py`): speed, heading, path length,
   duration and straightness, plus a transparent behavior classifier
   (`fast-mover` / `transiter` / `loiterer` / `stationary`) surfacing the go-fast
